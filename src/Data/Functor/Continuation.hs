@@ -9,6 +9,8 @@ module Data.Functor.Continuation
 , inlK
 , inrK
 , (<!!>)
+, exlK
+, exrK
 ) where
 
 import Data.Functor.Contravariant
@@ -41,3 +43,10 @@ inrK = contramap Right
 a <!!> b = tabulate (either (index a) (index b))
 
 infixr 3 <!!>
+
+
+exlK :: Contravariant k => k a -> k (a, b)
+exlK = contramap fst
+
+exrK :: Contravariant k => k b -> k (a, b)
+exrK = contramap snd
