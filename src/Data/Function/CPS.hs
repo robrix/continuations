@@ -1,2 +1,8 @@
 module Data.Function.CPS
-() where
+( -- * CPS functions
+  Fun(..)
+) where
+
+import Data.Functor.Continuation
+
+newtype Fun r a b = Fun { getFun :: r ! b -> r ! a }
