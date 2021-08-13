@@ -1,3 +1,4 @@
+{-# LANGUAGE TypeFamilies #-}
 -- | Continuations, modelled as functions wrapped in a contravariant functor.
 module Data.Functor.Continuation
 ( -- * Continuations
@@ -10,6 +11,7 @@ module Data.Functor.Continuation
 ) where
 
 import Data.Functor.Contravariant
+import Data.Functor.Contravariant.Rep
 
 -- Continuations
 
@@ -19,6 +21,11 @@ infixl 7 !
 
 instance Contravariant ((!) r) where
   contramap f = K . (. f) . (!)
+
+instance Representable ((!) r) where
+  type Rep ((!) r) = r
+  tabulate = K
+  index = (!)
 
 
 -- Elimination

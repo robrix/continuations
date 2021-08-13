@@ -64,6 +64,7 @@ library
   other-modules:
     Data.Profunctor.Fun.Internal
   build-depends:
+    , adjunctions
     , base ^>=4.14.1.0
     , profunctors
   hs-source-dirs:   src
