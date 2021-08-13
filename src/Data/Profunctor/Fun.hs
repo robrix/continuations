@@ -6,6 +6,8 @@ module Data.Profunctor.Fun
 , type (~>)
   -- ** Construction
 , fun
+  -- ** Elimination
+, (#)
 ) where
 
 import           Control.Arrow
@@ -79,3 +81,11 @@ infixr 0 ~>
 
 fun :: (r ! b -> a -> r) -> a ~~r~> b
 fun = Fun . fmap K
+
+
+-- Elimination
+
+(#) :: (a ~~r~> b) -> ((r ! b) -> a -> r)
+f # k = (getFun f k !)
+
+infixl 9 #
