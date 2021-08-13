@@ -4,6 +4,9 @@ module Data.Functor.Continuation
   type (!)(..)
   -- * Contravariant
 , Contravariant(..)
+  -- * Elimination
+, inlK
+, inrK
 ) where
 
 import Data.Functor.Contravariant
@@ -16,3 +19,12 @@ infixl 7 !
 
 instance Contravariant ((!) r) where
   contramap f = K . (. f) . (!)
+
+
+-- Elimination
+
+inlK :: Contravariant k => k (Either a b) -> k a
+inlK = contramap Left
+
+inrK :: Contravariant k => k (Either a b) -> k b
+inrK = contramap Right
