@@ -56,6 +56,10 @@ instance Arrow (Fun r) where
   first = first'
   second = second'
 
+instance ArrowChoice (Fun r) where
+  left = left'
+  right = right'
+
 
 -- Mixfix syntax
 
