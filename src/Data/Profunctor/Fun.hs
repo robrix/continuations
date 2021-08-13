@@ -60,6 +60,9 @@ instance ArrowChoice (Fun r) where
   left = left'
   right = right'
 
+instance ArrowApply (Fun r) where
+  app = Fun (\ k -> K (\ (f, a) -> getFun f k ! a))
+
 
 -- Mixfix syntax
 
