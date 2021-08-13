@@ -57,9 +57,9 @@ common common
 library
   import: common
   exposed-modules:
-    Data.Function.CPS
     Data.Functor.Continuation
     Data.Functor.Contravariant.CPS
+    Data.Profunctor.Fun
   build-depends:
     , base ^>=4.14.1.0
     , profunctors

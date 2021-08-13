@@ -1,4 +1,4 @@
-module Data.Function.CPS
+module Data.Profunctor.Fun
 ( -- * CPS functions
   Fun(..)
   -- ** Mixfix syntax
