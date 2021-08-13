@@ -1,4 +1,4 @@
-module Control.Continuation
+module Data.Functor.Continuation
 ( -- * Continuations
   type (!)(..)
 ) where

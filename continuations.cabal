@@ -57,7 +57,7 @@ common common
 library
   import: common
   exposed-modules:
-    Control.Continuation
+    Data.Functor.Continuation
   build-depends:
     , base ^>=4.14.1.0
   hs-source-dirs:   src
