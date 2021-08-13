@@ -52,7 +52,7 @@ instance Functor (Fun r a) where
   (<$) = rmap . const
 
 instance Applicative (Fun r x) where
-  pure a = Fun (\ k -> K (const (k ! a)))
+  pure = Fun . (>$)
   f <*> a = fun (\ k x -> f # K (\ f -> a # contramap f k ! x) ! x)
 
 instance Monad (Fun r a) where
