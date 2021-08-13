@@ -33,8 +33,8 @@ instance Profunctor (Fun r) where
   rmap g = Fun . lmap (contramap g) . (#)
 
 instance Choice (Fun r) where
-  left'  f = fun (\ k -> either (f # inlK k !) (inrK k !))
-  right' f = fun (\ k -> either (inlK k !) (f # inrK k !))
+  left'  f = Fun (\ k -> (f # inlK k) <!!> inrK k)
+  right' f = Fun (\ k -> inlK k <!!> (f # inrK k))
 
 instance Cochoice (Fun r) where
   unleft  f = Fun (\ k -> let f' = f # (k <!!> inrK f') in inlK f')
