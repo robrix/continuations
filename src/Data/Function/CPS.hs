@@ -6,11 +6,16 @@ module Data.Function.CPS
 , type (~>)
 ) where
 
-import Data.Functor.Continuation
+import qualified Control.Category as Cat
+import           Data.Functor.Continuation
 
 -- CPS functions
 
 newtype Fun r a b = Fun { getFun :: r ! b -> r ! a }
+
+instance Cat.Category (Fun r) where
+  id = Fun id
+  f . g = Fun (getFun g . getFun f)
 
 
 -- Mixfix syntax
