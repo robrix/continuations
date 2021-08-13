@@ -8,6 +8,7 @@ module Data.Functor.Continuation
   -- * Elimination
 , inlK
 , inrK
+, (<!!>)
 ) where
 
 import Data.Functor.Contravariant
@@ -35,3 +36,8 @@ inlK = contramap Left
 
 inrK :: Contravariant k => k (Either a b) -> k b
 inrK = contramap Right
+
+(<!!>) :: Representable k => k a -> k b -> k (Either a b)
+a <!!> b = tabulate (either (index a) (index b))
+
+infixr 3 <!!>
