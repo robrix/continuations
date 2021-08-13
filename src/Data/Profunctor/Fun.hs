@@ -31,6 +31,9 @@ instance Applicative (Fun r x) where
   pure a = Fun (\ k -> K (const (k ! a)))
   f <*> a = Fun (\ k -> K (\ x -> getFun f (K (\ f -> getFun a (contramap f k) ! x)) ! x))
 
+instance Monad (Fun r a) where
+  m >>= f = Fun (\ k -> K (\ x -> getFun m (K (\ a -> getFun (f a) k ! x)) ! x))
+
 
 -- Mixfix syntax
 
