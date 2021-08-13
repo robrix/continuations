@@ -12,7 +12,7 @@ import Data.Functor.Contravariant
 
 newtype r ! a = K { (!) :: a -> r }
 
-infixl 8 !
+infixl 7 !
 
 instance Contravariant ((!) r) where
   contramap f = K . (. f) . (!)
