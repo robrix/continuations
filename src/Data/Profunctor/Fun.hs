@@ -77,5 +77,5 @@ infixr 0 ~>
 
 -- Construction
 
-fun :: (r ! b -> a -> r) -> Fun r a b
+fun :: (r ! b -> a -> r) -> a ~~r~> b
 fun = Fun . fmap K
