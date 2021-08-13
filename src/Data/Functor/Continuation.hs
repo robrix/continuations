@@ -15,4 +15,4 @@ newtype r ! a = K { (!) :: a -> r }
 infixl 8 !
 
 instance Contravariant ((!) r) where
-  contramap f (K k) = K (k . f)
+  contramap f = K . (. f) . (!)
