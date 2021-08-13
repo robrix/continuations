@@ -2,6 +2,8 @@
 module Data.Functor.Continuation
 ( -- * Continuations
   type (!)(..)
+  -- * Contravariant
+, Contravariant(..)
 ) where
 
 import Data.Functor.Contravariant
