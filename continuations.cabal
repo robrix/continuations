@@ -70,7 +70,7 @@ library
   hs-source-dirs:   src
   default-language: Haskell2010
 
-test-suite continuations-test
+test-suite test
   import: common
   default-language: Haskell2010
   type:             exitcode-stdio-1.0
