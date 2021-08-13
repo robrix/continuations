@@ -37,8 +37,8 @@ instance Choice (Fun r) where
   right' f = fun (\ k -> either (inlK k !) (f # inrK k !))
 
 instance Cochoice (Fun r) where
-  unleft  f = fun (\ k -> let f' = (f # K (either (k !) (f' . Right)) !) in f' . Left)
-  unright f = fun (\ k -> let f' = (f # K (either (f' . Left) (k !)) !) in f' . Right)
+  unleft  f = Fun (\ k -> let f' = f # K (either (k !) (inrK f' !)) in inlK f')
+  unright f = Fun (\ k -> let f' = f # K (either (inlK f' !) (k !)) in inrK f')
 
 instance Strong (Fun r) where
   first'  f = fun (\ k (a, c) -> f # contramap (,c) k ! a)
