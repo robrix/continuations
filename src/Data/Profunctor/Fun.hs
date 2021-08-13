@@ -9,6 +9,7 @@ module Data.Profunctor.Fun
 import qualified Control.Category as Cat
 import           Data.Functor.Continuation
 import           Data.Profunctor
+import           Data.Profunctor.Traversing
 
 -- CPS functions
 
@@ -34,6 +35,9 @@ instance Cochoice (Fun r) where
 instance Strong (Fun r) where
   first'  f = Fun (\ k -> K (\ (a, c) -> getFun f (contramap (,c) k) ! a))
   second' f = Fun (\ k -> K (\ (c, a) -> getFun f (contramap (c,) k) ! a))
+
+instance Traversing (Fun r) where
+  wander traverse f = Fun (\ b -> K (\ a -> getFun (traverse (\ a -> Fun (\ k -> K (\ _ -> getFun f k ! a))) a) b ! ()))
 
 instance Functor (Fun r a) where
   fmap = rmap
