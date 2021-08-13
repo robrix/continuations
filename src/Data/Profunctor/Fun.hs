@@ -6,8 +6,6 @@ module Data.Profunctor.Fun
 , type (~>)
   -- ** Construction
 , fun
-  -- ** Elimination
-, (#)
 ) where
 
 import Data.Profunctor.Fun.Internal
