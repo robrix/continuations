@@ -1,3 +1,4 @@
+{-# LANGUAGE FunctionalDependencies #-}
 module Data.Profunctor.Fun.Internal
 ( -- * CPS functions
   Fun(..)
@@ -8,6 +9,8 @@ module Data.Profunctor.Fun.Internal
 , fun
   -- ** Elimination
 , (#)
+  -- * Contravariant continuation-passing style
+, ContravariantCPS(..)
 ) where
 
 import           Control.Arrow
@@ -89,3 +92,11 @@ fun = Fun . fmap K
 f # k = (getFun f k !)
 
 infixl 7 #
+
+
+-- Contravariant continuation-passing style
+
+class Contravariant k => ContravariantCPS r k | k -> r where
+  (<#>) :: (a' ~~r~> a) -> (k a -> k a')
+
+  infixl 4 <#>
