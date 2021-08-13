@@ -57,6 +57,7 @@ common common
 library
   import: common
   exposed-modules:
+    Data.Function.CPS
     Data.Functor.Continuation
     Data.Functor.Contravariant.CPS
   build-depends:
