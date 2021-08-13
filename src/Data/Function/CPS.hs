@@ -8,6 +8,7 @@ module Data.Function.CPS
 
 import qualified Control.Category as Cat
 import           Data.Functor.Continuation
+import           Data.Profunctor
 
 -- CPS functions
 
@@ -16,6 +17,9 @@ newtype Fun r a b = Fun { getFun :: r ! b -> r ! a }
 instance Cat.Category (Fun r) where
   id = Fun id
   f . g = Fun (getFun g . getFun f)
+
+instance Profunctor (Fun r) where
+  dimap f g = Fun . dimap (contramap g) (contramap f) . getFun
 
 
 -- Mixfix syntax
