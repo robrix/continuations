@@ -53,7 +53,7 @@ instance Applicative (Fun r x) where
   f <*> a = fun (\ k x -> getFun f (K (\ f -> getFun a (contramap f k) ! x)) ! x)
 
 instance Monad (Fun r a) where
-  m >>= f = fun (\ k x -> getFun m (K (\ a -> getFun (f a) k ! x)) ! x)
+  m >>= f = fun (\ k x -> getFun m (K (\ a -> (f a # k) x)) ! x)
 
 instance Arrow (Fun r) where
   arr = Fun . contramap
@@ -88,4 +88,4 @@ fun = Fun . fmap K
 (#) :: (a ~~r~> b) -> ((r ! b) -> a -> r)
 f # k = (getFun f k !)
 
-infixl 9 #
+infixl 7 #
