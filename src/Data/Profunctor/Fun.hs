@@ -27,6 +27,10 @@ instance Functor (Fun r a) where
   fmap = rmap
   (<$) = rmap . const
 
+instance Applicative (Fun r x) where
+  pure a = Fun (\ k -> K (const (k ! a)))
+  f <*> a = Fun (\ k -> K (\ x -> getFun f (K (\ f -> getFun a (contramap f k) ! x)) ! x))
+
 
 -- Mixfix syntax
 
