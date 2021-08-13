@@ -23,6 +23,10 @@ instance Profunctor (Fun r) where
   lmap f = Fun . rmap (contramap f) . getFun
   rmap g = Fun . lmap (contramap g) . getFun
 
+instance Functor (Fun r a) where
+  fmap = rmap
+  (<$) = rmap . const
+
 
 -- Mixfix syntax
 
