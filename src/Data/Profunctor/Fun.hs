@@ -23,6 +23,10 @@ instance Profunctor (Fun r) where
   lmap f = Fun . rmap (contramap f) . getFun
   rmap g = Fun . lmap (contramap g) . getFun
 
+instance Choice (Fun r) where
+  left'  f = Fun (\ k -> K (either (getFun f (contramap Left k) !) (contramap Right k !)))
+  right' f = Fun (\ k -> K (either (contramap Left k !) (getFun f (contramap Right k) !)))
+
 instance Functor (Fun r a) where
   fmap = rmap
   (<$) = rmap . const
