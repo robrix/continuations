@@ -31,6 +31,10 @@ instance Cochoice (Fun r) where
   unleft  f = Fun (\ k -> contramap Left (let f' = getFun f (K (either (k !) (contramap Right f' !))) in f'))
   unright f = Fun (\ k -> contramap Right (let f' = getFun f (K (either (contramap Left f' !) (k !))) in f'))
 
+instance Strong (Fun r) where
+  first'  f = Fun (\ k -> K (\ (a, c) -> getFun f (contramap (,c) k) ! a))
+  second' f = Fun (\ k -> K (\ (c, a) -> getFun f (contramap (c,) k) ! a))
+
 instance Functor (Fun r a) where
   fmap = rmap
   (<$) = rmap . const
