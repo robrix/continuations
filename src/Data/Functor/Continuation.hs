@@ -6,3 +6,5 @@ module Data.Functor.Continuation
 -- Continuations
 
 newtype r ! a = K { (!) :: a -> r }
+
+infixl 8 !
