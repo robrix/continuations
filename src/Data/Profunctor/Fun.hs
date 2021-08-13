@@ -6,6 +6,7 @@ module Data.Profunctor.Fun
 , type (~>)
 ) where
 
+import           Control.Arrow
 import qualified Control.Category as Cat
 import           Data.Functor.Continuation
 import           Data.Profunctor
@@ -49,6 +50,11 @@ instance Applicative (Fun r x) where
 
 instance Monad (Fun r a) where
   m >>= f = Fun (\ k -> K (\ x -> getFun m (K (\ a -> getFun (f a) k ! x)) ! x))
+
+instance Arrow (Fun r) where
+  arr = Fun . contramap
+  first = first'
+  second = second'
 
 
 -- Mixfix syntax
