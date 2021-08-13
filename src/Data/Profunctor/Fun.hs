@@ -4,6 +4,8 @@ module Data.Profunctor.Fun
   -- ** Mixfix syntax
 , type (~~)
 , type (~>)
+  -- ** Construction
+, fun
 ) where
 
 import           Control.Arrow
@@ -71,3 +73,9 @@ type r~> b = r b
 
 infixr 1 ~~
 infixr 0 ~>
+
+
+-- Construction
+
+fun :: (r ! b -> a -> r) -> Fun r a b
+fun = Fun . fmap K
