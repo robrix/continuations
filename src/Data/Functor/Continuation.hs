@@ -1,3 +1,4 @@
+-- | Continuations, modelled as functions wrapped in a contravariant functor.
 module Data.Functor.Continuation
 ( -- * Continuations
   type (!)(..)
