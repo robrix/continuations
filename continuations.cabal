@@ -59,6 +59,7 @@ library
   exposed-modules:
     Data.Functor.Continuation
     Data.Functor.Contravariant.CPS
+    Data.Profunctor.Cofun
     Data.Profunctor.Fun
   build-depends:
     , base ^>=4.14.1.0
