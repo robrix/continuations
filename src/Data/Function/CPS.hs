@@ -5,4 +5,6 @@ module Data.Function.CPS
 
 import Data.Functor.Continuation
 
+-- CPS functions
+
 newtype Fun r a b = Fun { getFun :: r ! b -> r ! a }
