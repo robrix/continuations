@@ -20,6 +20,8 @@ instance Cat.Category (Fun r) where
 
 instance Profunctor (Fun r) where
   dimap f g = Fun . dimap (contramap g) (contramap f) . getFun
+  lmap f = Fun . rmap (contramap f) . getFun
+  rmap g = Fun . lmap (contramap g) . getFun
 
 
 -- Mixfix syntax
