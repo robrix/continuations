@@ -1,0 +1,71 @@
+cabal-version:      2.4
+name:               continuations
+version:            0.0.0.0
+synopsis:           Continuations, CPS, co-functions, and combinators for working with them
+description:        Continuations modelled as functions to some specified type, functions in continuation-passing style, co-functions, and combinators for working with all of the above
+homepage:           https://github.com/robrix/continuations
+bug-reports:        https://github.com/robrix/continuations/issues
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Rob Rix
+maintainer:         rob.rix@me.com
+copyright:          2021 Rob Rix
+category:           Control
+
+common common
+  default-language: Haskell2010
+  ghc-options:
+    -Weverything
+    -Wno-all-missed-specialisations
+    -Wno-implicit-prelude
+    -Wno-missed-specialisations
+    -Wno-missing-import-lists
+    -Wno-missing-local-signatures
+    -Wno-monomorphism-restriction
+    -Wno-name-shadowing
+    -Wno-safe
+    -Wno-unsafe
+  if (impl(ghc >= 8.8))
+    ghc-options: -Wno-missing-deriving-strategies
+  if (impl(ghc >= 8.10))
+    ghc-options:
+      -Wno-missing-safe-haskell-mode
+      -Wno-prepositive-qualified-module
+  default-extensions:
+    DeriveTraversable
+    DerivingStrategies
+    DerivingVia
+    DisambiguateRecordFields
+    DuplicateRecordFields
+    EmptyCase
+    FlexibleContexts
+    FlexibleInstances
+    GeneralizedNewtypeDeriving
+    KindSignatures
+    LambdaCase
+    MultiParamTypeClasses
+    MultiWayIf
+    NamedFieldPuns
+    NoStarIsType
+    RankNTypes
+    StandaloneDeriving
+    TupleSections
+    TypeApplications
+    TypeOperators
+    ViewPatterns
+
+library
+  import: common
+  build-depends:
+    , base ^>=4.14.1.0
+  hs-source-dirs:   src
+  default-language: Haskell2010
+
+test-suite continuations-test
+  import: common
+  default-language: Haskell2010
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test
+  main-is:          Test.hs
+  build-depends:
+    , base
