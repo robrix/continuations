@@ -28,19 +28,19 @@ instance Profunctor (Fun r) where
   rmap g = Fun . lmap (contramap g) . getFun
 
 instance Choice (Fun r) where
-  left'  f = Fun (\ k -> K (either (getFun f (contramap Left k) !) (contramap Right k !)))
-  right' f = Fun (\ k -> K (either (contramap Left k !) (getFun f (contramap Right k) !)))
+  left'  f = fun (\ k -> either (getFun f (contramap Left k) !) (contramap Right k !))
+  right' f = fun (\ k -> either (contramap Left k !) (getFun f (contramap Right k) !))
 
 instance Cochoice (Fun r) where
-  unleft  f = Fun (\ k -> contramap Left (let f' = getFun f (K (either (k !) (contramap Right f' !))) in f'))
-  unright f = Fun (\ k -> contramap Right (let f' = getFun f (K (either (contramap Left f' !) (k !))) in f'))
+  unleft  f = fun (\ k -> let f' = (getFun f (K (either (k !) (f' . Right))) !) in f' . Left)
+  unright f = fun (\ k -> let f' = (getFun f (K (either (f' . Left) (k !))) !) in f' . Right)
 
 instance Strong (Fun r) where
-  first'  f = Fun (\ k -> K (\ (a, c) -> getFun f (contramap (,c) k) ! a))
-  second' f = Fun (\ k -> K (\ (c, a) -> getFun f (contramap (c,) k) ! a))
+  first'  f = fun (\ k (a, c) -> getFun f (contramap (,c) k) ! a)
+  second' f = fun (\ k (c, a) -> getFun f (contramap (c,) k) ! a)
 
 instance Traversing (Fun r) where
-  wander traverse f = Fun (\ b -> K (\ a -> getFun (traverse (\ a -> Fun (\ k -> K (\ _ -> getFun f k ! a))) a) b ! ()))
+  wander traverse f = fun (\ b a -> getFun (traverse (\ a -> fun (\ k _ -> getFun f k ! a)) a) b ! ())
 
 instance Functor (Fun r a) where
   fmap = rmap
@@ -48,10 +48,10 @@ instance Functor (Fun r a) where
 
 instance Applicative (Fun r x) where
   pure a = Fun (\ k -> K (const (k ! a)))
-  f <*> a = Fun (\ k -> K (\ x -> getFun f (K (\ f -> getFun a (contramap f k) ! x)) ! x))
+  f <*> a = fun (\ k x -> getFun f (K (\ f -> getFun a (contramap f k) ! x)) ! x)
 
 instance Monad (Fun r a) where
-  m >>= f = Fun (\ k -> K (\ x -> getFun m (K (\ a -> getFun (f a) k ! x)) ! x))
+  m >>= f = fun (\ k x -> getFun m (K (\ a -> getFun (f a) k ! x)) ! x)
 
 instance Arrow (Fun r) where
   arr = Fun . contramap
@@ -63,7 +63,7 @@ instance ArrowChoice (Fun r) where
   right = right'
 
 instance ArrowApply (Fun r) where
-  app = Fun (\ k -> K (\ (f, a) -> getFun f k ! a))
+  app = fun (\ k (f, a) -> getFun f k ! a)
 
 
 -- Mixfix syntax
