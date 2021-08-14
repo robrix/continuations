@@ -18,3 +18,6 @@ class Contravariant k => ContravariantCPS r k | k -> r where
 
 instance ContravariantCPS Bool Predicate where
   f <#> Predicate p = Predicate (f # K p !)
+
+instance ContravariantCPS Ordering Comparison where
+  f <#> Comparison c = Comparison (\ a b -> f # K (\ a -> f # K (c a) ! b) ! a)
