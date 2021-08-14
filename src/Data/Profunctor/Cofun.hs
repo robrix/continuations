@@ -17,6 +17,7 @@ module Data.Profunctor.Cofun
 import Data.Bifunctor.Disjunction
 import Data.Functor.Continuation
 import Data.Functor.Contravariant
+import Data.Profunctor
 import Data.Profunctor.Fun
 
 -- Co-functions
@@ -24,6 +25,9 @@ import Data.Profunctor.Fun
 data Cofun r b a = (:>-) { coreturn :: r ! b, coconst :: a }
 
 infixr 0 :>-
+
+instance Profunctor (Cofun r) where
+  dimap f g (b :>- a) = contramap f b >- g a
 
 
 -- Mixfix syntax
