@@ -55,6 +55,10 @@ instance Continuation Bool Predicate where
   inK = Predicate
   (!) = getPredicate
 
+instance Continuation r (Op r) where
+  inK = Op
+  (!) = getOp
+
 
 -- Construction
 
