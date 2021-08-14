@@ -7,7 +7,7 @@ module Data.Bifunctor.Disjunction
 ) where
 
 import Data.Functor.Continuation
-import Data.Functor.Identity
+import Data.Functor.Identity (Identity(..))
 
 -- Disjunctions
 
