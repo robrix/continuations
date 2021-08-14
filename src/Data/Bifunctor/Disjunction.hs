@@ -20,5 +20,5 @@ instance Disj Either where
   a <!!> b = tabulate (either (index a) (index b))
 
 
-deMorganDisj :: Representable k => (k a, k b) -> k (Either a b)
+deMorganDisj :: (Representable k, Disj d) => (k a, k b) -> k (a `d` b)
 deMorganDisj = uncurry (<!!>)
