@@ -98,7 +98,7 @@ infixr 0 ~>
 -- Construction
 
 fun :: (r ! b -> a -> r) -> a ~~r~> b
-fun = Fun . fmap K
+fun = Fun . inK1'
 
 
 -- Elimination
