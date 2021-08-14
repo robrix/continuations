@@ -3,7 +3,7 @@ module Data.Bifunctor.Conjunction
   Conj(..)
 , exlF
 , exrF
-, deMorganPair
+, deMorganConj
 ) where
 
 import Control.Applicative (liftA2)
@@ -30,5 +30,5 @@ exrF :: (Functor f, Conj c) => f (a `c` b) -> f b
 exrF = fmap (exr (K id) !)
 
 
-deMorganPair :: Contravariant k => Either (k a) (k b) -> k (a, b)
-deMorganPair = contramap fst `either` contramap snd
+deMorganConj :: (Contravariant k, Conj c) => Either (k a) (k b) -> k (a `c` b)
+deMorganConj = exl `either` exr
