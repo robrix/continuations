@@ -1,21 +1,19 @@
 module Data.Bifunctor.Disjunction
 ( -- * Disjunctions
-  inlK
-, inrK
-, (<!!>)
+  Disj(..)
 ) where
 
 import Data.Functor.Continuation
 
 -- Disjunctions
 
-inlK :: Contravariant k => k (Either a b) -> k a
-inlK = contramap Left
+class Disj d where
+  inlK :: Contravariant k => k (a `d` b) -> k a
+  inrK :: Contravariant k => k (a `d` b) -> k b
+  (<!!>) :: Representable k => k a -> k b -> k (a `d` b)
+  infixr 3 <!!>
 
-inrK :: Contravariant k => k (Either a b) -> k b
-inrK = contramap Right
-
-(<!!>) :: Representable k => k a -> k b -> k (Either a b)
-(<!!>) = curry deMorganEither
-
-infixr 3 <!!>
+instance Disj Either where
+  inlK = contramap Left
+  inrK = contramap Right
+  (<!!>) = curry deMorganEither
