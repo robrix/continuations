@@ -5,6 +5,8 @@ module Control.Monad.Trans.Negation
   -- * Construction
 , neg
 , in2K
+  -- * Elimination
+, runNeg
 ) where
 
 import Control.Applicative (liftA2)
@@ -28,3 +30,9 @@ neg = Neg . inK
 
 in2K :: Continuation r k => a -> k (k a)
 in2K = inK . flip (!)
+
+
+-- Elimination
+
+runNeg :: Continuation r k => Neg k a -> (k a -> r)
+runNeg = exK . getNeg
