@@ -67,7 +67,6 @@ library
     Data.Functor.Contravariant.CPS
     Data.Profunctor.Fun
   build-depends:
-    , adjunctions
     , base ^>=4.14.1.0
     , profunctors
   hs-source-dirs:   src
