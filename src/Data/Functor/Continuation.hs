@@ -13,6 +13,7 @@ module Data.Functor.Continuation
 , idK
 , constK
 , inK1
+, inK1'
 , inK2
   -- ** Elimination
 , (!)
@@ -119,6 +120,9 @@ constK = inK . const
 
 inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
 inK1 f = inK . f . (!)
+
+inK1' :: Continuation r k => (k a -> (b -> r)) -> (k a -> k b)
+inK1' f = inK . f
 
 inK2 :: Continuation r k => ((a -> r) -> (b -> r) -> (c -> r)) -> (k a -> k b -> k c)
 inK2 f a b = inK (exK a `f` exK b)
