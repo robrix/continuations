@@ -26,8 +26,8 @@ instance Continuation r k => Applicative (Neg k) where
 
 -- Construction
 
-neg :: Continuation r k => (k a -> r) -> Neg k a
-neg = Neg . inK
+neg :: Continuation r k => ((a -> r) -> r) -> Neg k a
+neg = Neg . in2K
 
 neg1 :: Continuation r k => (((a -> r) -> r) -> ((b -> r) -> r)) -> (Neg k a -> Neg k b)
 neg1 f = Neg . in2K . f . ex2K . getNeg
