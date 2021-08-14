@@ -1,5 +1,5 @@
 {-# LANGUAGE FunctionalDependencies #-}
-module Data.Functor.Contravariant.Apply
+module Data.Functor.Contravariant.Applicative
 ( -- * Contravariant applicative functors
   Contrapply(..)
 ) where

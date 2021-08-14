@@ -60,7 +60,7 @@ library
     Data.Bifunctor.Conjunction
     Data.Bifunctor.Disjunction
     Data.Functor.Continuation
-    Data.Functor.Contravariant.Apply
+    Data.Functor.Contravariant.Applicative
     Data.Functor.Contravariant.CPS
     Data.Profunctor.Cofun
     Data.Profunctor.Fun
