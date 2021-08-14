@@ -175,5 +175,5 @@ infixr 7 !!
 
 -- Construction
 
-in2K :: Continuation r k => a -> k !! a
+in2K :: Continuation r k => a -> k (k a)
 in2K = inK . flip (!)
