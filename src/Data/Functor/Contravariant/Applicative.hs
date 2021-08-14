@@ -30,6 +30,9 @@ instance Contrapply r ((!) r) where
 instance Contrapply Bool Predicate where
   Predicate f <&> Predicate a = Predicate (\ b -> f (K a >- b))
 
+instance Contrapply r (Op r) where
+  Op f <&> Op a = Op (\ b -> f (K a >- b))
+
 
 class Contrapply r k => Contrapplicative r k | k -> r where
   copure :: (b -> a) -> k (a >-r-~ b)
