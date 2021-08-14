@@ -28,7 +28,7 @@ infixr 0 :>-
 
 -- Mixfix syntax
 
-type a >-r = Fun r a
+type a >-r = Cofun r a
 type r-~ b = r b
 
 infixr 1 >-
