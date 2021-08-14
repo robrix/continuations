@@ -12,7 +12,7 @@ module Data.Functor.Continuation
   -- ** Construction
 , idK
 , inK1
-  -- ** Computation
+  -- ** Coercion
 , coerceK
   -- ** Defaults
 , tabulateContinuation
@@ -60,7 +60,7 @@ inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
 inK1 f = inK . f . (!)
 
 
--- Computation
+-- Coercion
 
 coerceK :: (Continuation r j, Continuation r k) => j a -> k a
 coerceK = inK . (!)
