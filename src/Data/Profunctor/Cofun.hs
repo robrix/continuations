@@ -3,6 +3,8 @@ module Data.Profunctor.Cofun
   Cofun(..)
   -- * Construction
 , (>-)
+  -- * Elimination
+, withCofun
 ) where
 
 import Data.Functor.Continuation
@@ -20,3 +22,9 @@ infixr 0 :>-
 (>-) = (:>-)
 
 infixr 0 >-
+
+
+-- Elimination
+
+withCofun :: Cofun r b a -> s ! ((r ! b) -> (s ! a))
+withCofun (b :>- a) = K (\ f -> f b ! a)
