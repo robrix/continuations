@@ -23,6 +23,8 @@ module Data.Functor.Continuation
   -- ** Defaults
 , tabulateContinuation
 , indexContinuation
+  -- * Double negation
+, type (!!)
 ) where
 
 import qualified Control.Category as Cat
@@ -102,3 +104,8 @@ tabulateContinuation = inK
 
 indexContinuation :: Continuation r k => k a -> (a -> r)
 indexContinuation = (!)
+
+
+-- Double negation
+
+type k !! a = k (k a)
