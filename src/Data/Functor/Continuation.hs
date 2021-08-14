@@ -28,6 +28,7 @@ module Data.Functor.Continuation
 , in2K
 ) where
 
+import           Control.Applicative (liftA2)
 import qualified Control.Category as Cat
 import           Data.Functor.Contravariant
 
@@ -44,6 +45,9 @@ instance Cat.Category (!) where
 
 instance Contravariant ((!) r) where
   contramap f = K . (. f) . (!)
+
+instance Semigroup r => Semigroup (r ! a) where
+  (<>) = inK2 (liftA2 (<>))
 
 
 class Contravariant k => Continuation r k | k -> r where
