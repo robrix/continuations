@@ -52,6 +52,14 @@ instance Semigroup r => Semigroup (r ! a) where
 instance Monoid r => Monoid (r ! a) where
   mempty = K mempty
 
+instance Num r => Num (r ! a) where
+  (+) = inK2 (liftA2 (+))
+  (*) = inK2 (liftA2 (*))
+  (-) = inK2 (liftA2 (-))
+  abs = inK1 (fmap abs)
+  signum = inK1 (fmap signum)
+  fromInteger = K . const . fromInteger
+
 class Contravariant k => Continuation r k | k -> r where
   inK :: (a -> r) -> k a
   exK :: k a -> (a -> r)
