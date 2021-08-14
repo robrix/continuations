@@ -28,6 +28,8 @@ infixr 0 :>-
 
 instance Profunctor (Cofun r) where
   dimap f g (b :>- a) = contramap f b >- g a
+  lmap f (b :>- a) = contramap f b >- a
+  rmap g (b :>- a) = b >- g a
 
 
 -- Mixfix syntax
