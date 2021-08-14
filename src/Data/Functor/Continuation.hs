@@ -1,4 +1,5 @@
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE UndecidableInstances #-}
 -- | Continuations, modelled as functions wrapped in a contravariant functor.
 module Data.Functor.Continuation
 ( -- * Continuations
@@ -9,6 +10,7 @@ module Data.Functor.Continuation
 ) where
 
 import Data.Functor.Contravariant
+import Data.Functor.Contravariant.Adjunction
 import Data.Functor.Contravariant.Rep
 
 -- Continuations
@@ -24,3 +26,10 @@ instance Representable ((!) r) where
   type Rep ((!) r) = r
   tabulate = K
   index = (!)
+
+instance r ~ s => Adjunction ((!) r) ((!) s) where
+  unit   a = K (! a)
+  counit a = K (! a)
+
+  leftAdjunct  f a = K ((! a) . f)
+  rightAdjunct f a = K ((! a) . f)
