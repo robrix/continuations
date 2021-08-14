@@ -5,6 +5,7 @@ module Control.Monad.Trans.Negation
   -- * Construction
 , neg
 , neg1
+, neg2
   -- * Elimination
 , runNeg
 ) where
@@ -30,6 +31,9 @@ neg = Neg . inK
 
 neg1 :: Continuation r k => ((k a -> r) -> (k b -> r)) -> (Neg k a -> Neg k b)
 neg1 f = neg . f . exK . getNeg
+
+neg2 :: Continuation r k => ((k a -> r) -> (k b -> r) -> (k c -> r)) -> (Neg k a -> Neg k b -> Neg k c)
+neg2 f a b = neg (exK (getNeg a) `f` exK (getNeg b))
 
 
 -- Elimination
