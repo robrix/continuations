@@ -119,7 +119,7 @@ constK = inK . const
 
 
 inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
-inK1 f = inK . f . (!)
+inK1 f = inK1' (f . (!))
 
 inK1' :: Continuation r k => (k a -> (b -> r)) -> (k a -> k b)
 inK1' f = inK . f
