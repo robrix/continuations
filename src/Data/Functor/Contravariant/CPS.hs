@@ -3,6 +3,8 @@ module Data.Functor.Contravariant.CPS
 ( -- * Contravariant continuation-passing style
   ContravariantCPS(..)
 , Contravariant(..)
+  -- ** Computation
+, comap
 ) where
 
 import Data.Functor.Continuation
@@ -30,3 +32,9 @@ instance ContravariantCPS Bool Equivalence where
 
 instance ContravariantCPS r (Op r) where
   f <#> Op k = Op (K k # f !)
+
+
+-- Computation
+
+comap :: Contravariant f => (a' -> a) -> (f a -> f a')
+comap = contramap
