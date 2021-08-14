@@ -8,6 +8,7 @@ module Data.Profunctor.Fun
 , fun
   -- ** Elimination
 , (#)
+, appFun
 , elimFun
   -- * Co-functions
 , Cofun(..)
@@ -107,6 +108,9 @@ fun = Fun . inK1'
 (#) = flip getFun
 
 infixl 7 #
+
+appFun :: (a ~~r~> b) -> a -> r ! (r ! b)
+appFun f a = inK (\ b -> b # f ! a)
 
 elimFun :: (b >-r-~ a) -> r ! (a ~~r~> b)
 elimFun (b :>- a) = K (\ f -> b # f ! a)
