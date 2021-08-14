@@ -20,7 +20,7 @@ import Data.Bifunctor.Disjunction
 import Data.Functor.Continuation
 import Data.Functor.Contravariant
 import Data.Profunctor
-import Data.Profunctor.Fun.Internal
+import Data.Profunctor.Fun
 
 -- Co-functions
 
