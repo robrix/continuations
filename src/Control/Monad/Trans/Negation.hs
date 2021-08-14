@@ -10,7 +10,7 @@ module Control.Monad.Trans.Negation
 import Control.Applicative (liftA2)
 import Data.Functor.Continuation
 
-newtype Neg k a = Neg { runNeg :: k (k a) }
+newtype Neg k a = Neg { getNeg :: k (k a) }
 
 instance Contravariant k => Functor (Neg k) where
   fmap f (Neg k) = Neg (contramap (contramap f) k)
