@@ -46,7 +46,7 @@ instance Cat.Category (!) where
   j . k = K (exK k . exK j)
 
 instance Contravariant ((!) r) where
-  contramap f = K . (. f) . (!)
+  contramap f = inK1 (. f)
 
 instance Semigroup r => Semigroup (r ! a) where
   (<>) = inK2 (liftA2 (<>))
