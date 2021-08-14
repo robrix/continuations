@@ -21,3 +21,6 @@ instance ContravariantCPS Bool Predicate where
 
 instance ContravariantCPS Ordering Comparison where
   f <#> Comparison c = Comparison (\ a b -> f # K (\ a -> f # K (c a) ! b) ! a)
+
+instance ContravariantCPS Bool Equivalence where
+  f <#> Equivalence e = Equivalence (\ a b -> f # K (\ a -> f # K (e a) ! b) ! a)
