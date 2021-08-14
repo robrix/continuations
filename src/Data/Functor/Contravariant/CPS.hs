@@ -5,6 +5,7 @@ module Data.Functor.Contravariant.CPS
 , Contravariant(..)
 ) where
 
+import Data.Functor.Continuation
 import Data.Functor.Contravariant
 import Data.Profunctor.Fun
 
@@ -14,3 +15,6 @@ class Contravariant k => ContravariantCPS r k | k -> r where
   (<#>) :: (a' ~~r~> a) -> (k a -> k a')
 
   infixl 4 <#>
+
+instance ContravariantCPS Bool Predicate where
+  f <#> Predicate p = Predicate (f # K p !)
