@@ -1,6 +1,7 @@
 module Data.Bifunctor.Disjunction
 ( -- * Disjunctions
   Disj(..)
+, deMorganDisj
 ) where
 
 import Data.Functor.Continuation
@@ -16,4 +17,8 @@ class Disj d where
 instance Disj Either where
   inlK = contramap Left
   inrK = contramap Right
-  (<!!>) = curry deMorganEither
+  a <!!> b = tabulate (either (index a) (index b))
+
+
+deMorganDisj :: Representable k => (k a, k b) -> k (Either a b)
+deMorganDisj = uncurry (<!!>)
