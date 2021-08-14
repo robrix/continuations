@@ -7,8 +7,6 @@ module Data.Profunctor.Fun.Internal
 , type (~>)
   -- ** Construction
 , fun
-  -- * Contravariant continuation-passing style
-, ContravariantCPS(..)
 ) where
 
 import           Control.Arrow
@@ -85,11 +83,3 @@ infixr 0 ~>
 
 fun :: (r ! b -> a -> r) -> a ~~r~> b
 fun = Fun . fmap K
-
-
--- Contravariant continuation-passing style
-
-class Contravariant k => ContravariantCPS r k | k -> r where
-  (<#>) :: (a' ~~r~> a) -> (k a -> k a')
-
-  infixl 4 <#>
