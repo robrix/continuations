@@ -7,7 +7,6 @@ module Data.Functor.Continuation
   type (!)(..)
   -- * Contravariant
 , Contravariant(..)
-, Representable(..)
   -- * Continuation abstraction
 , Continuation(..)
   -- ** Construction
@@ -21,8 +20,6 @@ module Data.Functor.Continuation
 
 import qualified Control.Category as Cat
 import           Data.Functor.Contravariant
-import           Data.Functor.Contravariant.Adjunction
-import           Data.Functor.Contravariant.Rep
 
 -- Continuations
 
@@ -37,18 +34,6 @@ instance Cat.Category (!) where
 
 instance Contravariant ((!) r) where
   contramap f = K . (. f) . (!)
-
-instance Representable ((!) r) where
-  type Rep ((!) r) = r
-  tabulate = K
-  index = (!)
-
-instance r ~ s => Adjunction ((!) r) ((!) s) where
-  unit   a = K (! a)
-  counit a = K (! a)
-
-  leftAdjunct  f a = K ((! a) . f)
-  rightAdjunct f a = K ((! a) . f)
 
 
 class Contravariant k => Continuation r k | k -> r where
