@@ -40,7 +40,7 @@ infixl 7 !
 
 instance Cat.Category (!) where
   id = idK
-  j . k = K ((k !) . (j !))
+  j . k = K (exK k . exK j)
 
 instance Contravariant ((!) r) where
   contramap f = K . (. f) . (!)
