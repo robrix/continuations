@@ -65,6 +65,26 @@ instance Fractional r => Fractional (r ! a) where
   recip = inK1 (fmap recip)
   fromRational = K . const . fromRational
 
+instance Floating r => Floating (r ! a) where
+  pi = K (const pi)
+  exp = inK1 (fmap exp)
+  sqrt = inK1 (fmap sqrt)
+  log = inK1 (fmap log)
+  sin = inK1 (fmap sin)
+  tan = inK1 (fmap tan)
+  cos = inK1 (fmap cos)
+  asin = inK1 (fmap asin)
+  atan = inK1 (fmap atan)
+  acos = inK1 (fmap acos)
+  sinh = inK1 (fmap sinh)
+  tanh = inK1 (fmap tanh)
+  cosh = inK1 (fmap cosh)
+  asinh = inK1 (fmap asinh)
+  atanh = inK1 (fmap atanh)
+  acosh = inK1 (fmap acosh)
+  (**) = inK2 (liftA2 (**))
+  logBase = inK2 (liftA2 logBase)
+
 
 -- Continuation abstraction
 
