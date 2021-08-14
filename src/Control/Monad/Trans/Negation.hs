@@ -1,4 +1,4 @@
-module Control.Monad.Trans.Continuation
+module Control.Monad.Trans.Negation
 ( -- * Continuation monad
   type (!!)(..)
 ) where

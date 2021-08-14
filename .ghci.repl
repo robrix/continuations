@@ -37,4 +37,4 @@
 :seti -Wno-type-defaults
 :set -Wno-unused-packages
 
-:load Control.Monad.Trans.Continuation Data.Functor.Continuation Data.Functor.Contravariant.Applicative Data.Profunctor.Fun
+:load Control.Monad.Trans.Negation Data.Functor.Continuation Data.Functor.Contravariant.Applicative Data.Profunctor.Fun
