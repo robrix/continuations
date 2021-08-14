@@ -149,7 +149,7 @@ coerceK = inK . (!)
 
 -- Computation
 
-adjunct :: Continuation r k => (a -> k b) -> (b -> k a)
+adjunct :: (Continuation r j, Continuation r k) => (a -> j b) -> (b -> k a)
 adjunct f a = inK ((! a) . f)
 
 
