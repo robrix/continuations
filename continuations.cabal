@@ -66,6 +66,7 @@ library
     Data.Functor.Continuation
     Data.Functor.Contravariant.Applicative
     Data.Functor.Contravariant.CPS
+    Data.Functor.Contravariant.Flip
     Data.Profunctor.Fun
   build-depends:
     , base ^>=4.14.1.0
