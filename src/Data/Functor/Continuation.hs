@@ -21,6 +21,7 @@ module Data.Functor.Continuation
 , exK1
 , exK1'
 , exK2
+, ex2K
   -- ** Coercion
 , coerceK
   -- ** Computation
@@ -144,6 +145,10 @@ exK1' f = exK . f
 
 exK2 :: Continuation r k => (k a -> k b -> k c) -> ((a -> r) -> (b -> r) -> (c -> r))
 exK2 f a b = exK (inK a `f` inK b)
+
+
+ex2K :: Continuation r k => k (k a) -> ((a -> r) -> r)
+ex2K k = exK k . inK
 
 
 -- Coercion
