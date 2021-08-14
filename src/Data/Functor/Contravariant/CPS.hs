@@ -16,6 +16,9 @@ class Contravariant k => ContravariantCPS r k | k -> r where
 
   infixl 4 <#>
 
+instance ContravariantCPS r ((!) r) where
+  (<#>) = (#)
+
 instance ContravariantCPS Bool Predicate where
   f <#> Predicate p = Predicate (f # K p !)
 
