@@ -6,6 +6,7 @@ module Data.Functor.Contravariant.Applicative
 ) where
 
 import Data.Functor.Continuation
+import Data.Functor.Contravariant
 import Data.Functor.Contravariant.CPS
 import Data.Profunctor.Cofun
 import Data.Profunctor.Fun
@@ -25,6 +26,9 @@ class ContravariantCPS r k => Contrapply r k | k -> r where
 
 instance Contrapply r ((!) r) where
   f <&> a = K (\ b -> f ! (a >- b))
+
+instance Contrapply Bool Predicate where
+  Predicate f <&> Predicate a = Predicate (\ b -> f (K a >- b))
 
 
 class Contrapply r k => Contrapplicative r k | k -> r where
