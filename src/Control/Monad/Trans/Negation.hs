@@ -18,7 +18,7 @@ instance Contravariant k => Functor (Neg k) where
 
 instance Continuation r k => Applicative (Neg k) where
   pure = Neg . in2K
-  liftA2 f (Neg a) (Neg b) = Neg (inK (\ c -> a ! inK (\ a -> b ! inK (\ b -> c ! f a b))))
+  liftA2 f (Neg a) (Neg b) = neg (\ c -> a ! inK (\ a -> b ! inK (\ b -> c ! f a b)))
 
 
 -- Construction
