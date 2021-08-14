@@ -3,4 +3,4 @@ module Control.Monad.Trans.Negation
   type (!!)(..)
 ) where
 
-newtype k !! a = DN { runDN :: k (k a) }
+newtype k !! a = Neg { runNeg :: k (k a) }
