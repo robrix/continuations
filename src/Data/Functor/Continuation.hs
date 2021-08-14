@@ -15,6 +15,7 @@ import Data.Functor.Contravariant.Rep
 
 -- Continuations
 
+-- | Continuations, represented as functions. Note that the type parameters are in the opposite order, making this type a 'Contravariant' functor.
 newtype r ! a = K { (!) :: a -> r }
 
 infixl 7 !
