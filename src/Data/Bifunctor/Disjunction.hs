@@ -1,10 +1,13 @@
 module Data.Bifunctor.Disjunction
-( inlK
+( -- * Disjunctions
+  inlK
 , inrK
 , (<!!>)
 ) where
 
 import Data.Functor.Continuation
+
+-- Disjunctions
 
 inlK :: Contravariant k => k (Either a b) -> k a
 inlK = contramap Left
