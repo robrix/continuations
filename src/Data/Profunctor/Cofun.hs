@@ -9,6 +9,7 @@ module Data.Profunctor.Cofun
   -- * Elimination
 , withCofun
 , elimCofun
+, runCofun
   -- * Computation
 , cocurry
 , uncocurry
@@ -55,6 +56,9 @@ withCofun (b :>- a) = K (\ f -> f b ! a)
 
 elimCofun :: (b ~~r~> a) -> r ! (a >-r-~ b)
 elimCofun f = K (\ (a :>- b) -> f # a ! b)
+
+runCofun :: (b -> a) -> r ! (a >-r-~ b)
+runCofun f = K (\ (a :>- b) -> a ! f b)
 
 
 -- Computation
