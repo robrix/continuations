@@ -17,16 +17,16 @@ class Contravariant k => ContravariantCPS r k | k -> r where
   infixl 4 <#>
 
 instance ContravariantCPS r ((!) r) where
-  (<#>) = (#)
+  (<#>) = flip (#)
 
 instance ContravariantCPS Bool Predicate where
-  f <#> Predicate p = Predicate (f # K p !)
+  f <#> Predicate p = Predicate (K p # f !)
 
 instance ContravariantCPS Ordering Comparison where
-  f <#> Comparison c = Comparison (\ a b -> f # K (\ a -> f # K (c a) ! b) ! a)
+  f <#> Comparison c = Comparison (\ a b -> K (\ a -> K (c a) # f ! b) # f ! a)
 
 instance ContravariantCPS Bool Equivalence where
-  f <#> Equivalence e = Equivalence (\ a b -> f # K (\ a -> f # K (e a) ! b) ! a)
+  f <#> Equivalence e = Equivalence (\ a b -> K (\ a -> K (e a) # f ! b) # f ! a)
 
 instance ContravariantCPS r (Op r) where
-  f <#> Op k = Op (f # K k !)
+  f <#> Op k = Op (K k # f !)

@@ -7,6 +7,7 @@ module Data.Profunctor.Fun
   -- ** Construction
 , fun
   -- ** Elimination
+, (#)
 , elimFun
 ) where
 
@@ -24,4 +25,4 @@ fun = Fun . fmap K
 -- Elimination
 
 elimFun :: (b >-r-~ a) -> r ! (a ~~r~> b)
-elimFun (b :>- a) = K (\ f -> f # b ! a)
+elimFun (b :>- a) = K (\ f -> b # f ! a)
