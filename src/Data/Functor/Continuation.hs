@@ -14,6 +14,8 @@ module Data.Functor.Continuation
 , inK1
   -- ** Coercion
 , coerceK
+  -- ** Computation
+, adjunct
   -- ** Defaults
 , tabulateContinuation
 , indexContinuation
@@ -64,6 +66,12 @@ inK1 f = inK . f . (!)
 
 coerceK :: (Continuation r j, Continuation r k) => j a -> k a
 coerceK = inK . (!)
+
+
+-- Computation
+
+adjunct :: Continuation r k => (a -> k b) -> (b -> k a)
+adjunct f a = inK ((! a) . f)
 
 
 -- Defaults
