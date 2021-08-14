@@ -39,7 +39,7 @@ withCofun (b :>- a) = K (\ f -> f b ! a)
 
 -- Computation
 
-cocurry :: (c -> Either a b) -> Fun r (Cofun r b c) a
+cocurry :: Disj d => (c -> a `d` b) -> Fun r (Cofun r b c) a
 cocurry f = Fun (\ k -> K (\ (b :>- c) -> (k <!!> b) ! f c))
 
 uncocurry :: Disj d => Fun r (Cofun r b c) a -> Fun r c (a `d` b)
