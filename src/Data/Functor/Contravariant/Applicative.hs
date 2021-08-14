@@ -2,6 +2,7 @@
 module Data.Functor.Contravariant.Applicative
 ( -- * Contravariant applicative functors
   Contrapply(..)
+  -- ** Contravariant applicative unital functors
 , Contrapplicative(..)
 ) where
 
@@ -32,6 +33,8 @@ instance Contrapply Bool Predicate where
 instance Contrapply r (Op r) where
   Op f <&> Op a = Op (\ b -> f (K a >- b))
 
+
+-- Contravariant applicative unital functors
 
 class Contrapply r k => Contrapplicative r k | k -> r where
   copure :: (b -> a) -> k (a >-r-~ b)
