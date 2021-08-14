@@ -65,7 +65,6 @@ library
     Data.Functor.Continuation
     Data.Functor.Contravariant.Applicative
     Data.Functor.Contravariant.CPS
-    Data.Profunctor.Cofun
     Data.Profunctor.Fun
   build-depends:
     , adjunctions
