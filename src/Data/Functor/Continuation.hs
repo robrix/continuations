@@ -11,6 +11,8 @@ module Data.Functor.Continuation
 , (<!!>)
 , exlK
 , exrK
+, deMorganPair
+, deMorganEither
 ) where
 
 import Data.Functor.Contravariant
@@ -50,3 +52,9 @@ exlK = contramap fst
 
 exrK :: Contravariant k => k b -> k (a, b)
 exrK = contramap snd
+
+deMorganPair :: Contravariant k => Either (k a) (k b) -> k (a, b)
+deMorganPair = contramap fst `either` contramap snd
+
+deMorganEither :: Representable k => (k a, k b) -> k (Either a b)
+deMorganEither (a, b) = tabulate (either (index a) (index b))
