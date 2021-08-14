@@ -70,6 +70,7 @@ library
   build-depends:
     , base ^>=4.14.1.0
     , profunctors
+    , transformers
   hs-source-dirs:   src
   default-language: Haskell2010
 
