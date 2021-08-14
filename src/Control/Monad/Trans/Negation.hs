@@ -20,7 +20,7 @@ instance Contravariant k => Functor (Neg k) where
   a <$ Neg k = Neg (contramap (a >$) k)
 
 instance Continuation r k => Applicative (Neg k) where
-  pure = Neg . in2K
+  pure = Neg . in2K0
   liftA2 f = neg2 (\ a b c -> a (inK (\ a -> b (inK (\ b -> c ! f a b)))))
 
 

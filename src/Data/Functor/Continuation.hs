@@ -15,7 +15,7 @@ module Data.Functor.Continuation
 , inK1
 , inK1'
 , inK2
-, in2K
+, in2K0
   -- ** Elimination
 , (!)
 , exK1
@@ -127,8 +127,8 @@ inK2 :: Continuation r k => ((a -> r) -> (b -> r) -> (c -> r)) -> (k a -> k b ->
 inK2 f a b = inK (exK a `f` exK b)
 
 
-in2K :: Continuation r k => a -> k (k a)
-in2K = inK . flip exK
+in2K0 :: Continuation r k => a -> k (k a)
+in2K0 = inK . flip exK
 
 
 -- Elimination
