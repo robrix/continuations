@@ -4,6 +4,7 @@ module Control.Monad.Trans.Negation
   Neg(..)
   -- * Construction
 , neg
+, neg1
   -- * Elimination
 , runNeg
 ) where
@@ -26,6 +27,9 @@ instance Continuation r k => Applicative (Neg k) where
 
 neg :: Continuation r k => (k a -> r) -> Neg k a
 neg = Neg . inK
+
+neg1 :: Continuation r k => ((k a -> r) -> (k b -> r)) -> (Neg k a -> Neg k b)
+neg1 f = neg . f . exK . getNeg
 
 
 -- Elimination
