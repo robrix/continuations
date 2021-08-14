@@ -123,6 +123,9 @@ instance Profunctor (Cofun r) where
   lmap f (b :>- a) = contramap f b >- a
   rmap g (b :>- a) = b >- g a
 
+instance Functor (Cofun r b) where
+  fmap = rmap
+
 
 -- Mixfix syntax
 
