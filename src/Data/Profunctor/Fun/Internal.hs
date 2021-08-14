@@ -4,8 +4,6 @@ module Data.Profunctor.Fun.Internal
   -- ** Mixfix syntax
 , type (~~)
 , type (~>)
-  -- ** Construction
-, fun
 ) where
 
 import           Control.Arrow
@@ -39,11 +37,11 @@ instance Cochoice (Fun r) where
   unright f = Fun (\ k -> let f' = f # (inlK f' <!!> k) in inrK f')
 
 instance Strong (Fun r) where
-  first'  f = fun (\ k (a, c) -> f # contramap (,c) k ! a)
-  second' f = fun (\ k (c, a) -> f # contramap (c,) k ! a)
+  first'  f = Fun (\ k -> K (\ (a, c) -> f # contramap (,c) k ! a))
+  second' f = Fun (\ k -> K (\ (c, a) -> f # contramap (c,) k ! a))
 
 instance Traversing (Fun r) where
-  wander traverse f = fun (\ b a -> traverse (\ a -> fun (\ k _ -> f # k ! a)) a # b ! ())
+  wander traverse f = Fun (\ b -> K (\ a -> traverse (\ a -> Fun (\ k -> K (\ _ -> f # k ! a))) a # b ! ()))
 
 instance Functor (Fun r a) where
   fmap = rmap
@@ -51,10 +49,10 @@ instance Functor (Fun r a) where
 
 instance Applicative (Fun r x) where
   pure = Fun . (>$)
-  f <*> a = fun (\ k x -> f # K (\ f -> a # contramap f k ! x) ! x)
+  f <*> a = Fun (\ k -> K (\ x -> f # K (\ f -> a # contramap f k ! x) ! x))
 
 instance Monad (Fun r a) where
-  m >>= f = fun (\ k x -> m # K (\ a -> f a # k ! x) ! x)
+  m >>= f = Fun (\ k -> K (\ x -> m # K (\ a -> f a # k ! x) ! x))
 
 instance Arrow (Fun r) where
   arr = Fun . contramap
@@ -66,7 +64,7 @@ instance ArrowChoice (Fun r) where
   right = right'
 
 instance ArrowApply (Fun r) where
-  app = fun (\ k (f, a) -> f # k ! a)
+  app = Fun (\ k -> K (\ (f, a) -> f # k ! a))
 
 
 -- Mixfix syntax
@@ -76,9 +74,3 @@ type r~> b = r b
 
 infixr 1 ~~
 infixr 0 ~>
-
-
--- Construction
-
-fun :: (r ! b -> a -> r) -> a ~~r~> b
-fun = Fun . fmap K
