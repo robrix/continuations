@@ -6,10 +6,6 @@ module Data.Functor.Continuation
   -- * Contravariant
 , Contravariant(..)
 , Representable(..)
-  -- * Elimination
-, exlK
-, exrK
-, deMorganPair
 ) where
 
 import Data.Functor.Contravariant
@@ -28,16 +24,3 @@ instance Representable ((!) r) where
   type Rep ((!) r) = r
   tabulate = K
   index = (!)
-
-
--- Elimination
-
-exlK :: Contravariant k => k a -> k (a, b)
-exlK = contramap fst
-
-exrK :: Contravariant k => k b -> k (a, b)
-exrK = contramap snd
-
-
-deMorganPair :: Contravariant k => Either (k a) (k b) -> k (a, b)
-deMorganPair = contramap fst `either` contramap snd
