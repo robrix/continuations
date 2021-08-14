@@ -109,3 +109,5 @@ indexContinuation = (!)
 -- Double negation
 
 type k !! a = k (k a)
+
+infixr 7 !!
