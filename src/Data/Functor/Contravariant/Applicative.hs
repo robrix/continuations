@@ -8,7 +8,6 @@ module Data.Functor.Contravariant.Applicative
 import Data.Functor.Continuation
 import Data.Functor.Contravariant
 import Data.Functor.Contravariant.CPS
-import Data.Profunctor.Cofun
 import Data.Profunctor.Fun
 
 -- Contravariant applicative functors
