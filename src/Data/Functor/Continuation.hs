@@ -11,9 +11,10 @@ module Data.Functor.Continuation
 , idK
 ) where
 
-import Data.Functor.Contravariant
-import Data.Functor.Contravariant.Adjunction
-import Data.Functor.Contravariant.Rep
+import qualified Control.Category as Cat
+import           Data.Functor.Contravariant
+import           Data.Functor.Contravariant.Adjunction
+import           Data.Functor.Contravariant.Rep
 
 -- Continuations
 
@@ -21,6 +22,10 @@ import Data.Functor.Contravariant.Rep
 newtype r ! a = K { (!) :: a -> r }
 
 infixl 7 !
+
+instance Cat.Category (!) where
+  id = idK
+  j . k = K ((k !) . (j !))
 
 instance Contravariant ((!) r) where
   contramap f = K . (. f) . (!)
