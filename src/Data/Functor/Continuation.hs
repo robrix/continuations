@@ -59,15 +59,15 @@ instance Num r => Num (r ! a) where
   (-) = inK2 (liftA2 (-))
   abs = inK1 (fmap abs)
   signum = inK1 (fmap signum)
-  fromInteger = K . const . fromInteger
+  fromInteger = constK . fromInteger
 
 instance Fractional r => Fractional (r ! a) where
   (/) = inK2 (liftA2 (/))
   recip = inK1 (fmap recip)
-  fromRational = K . const . fromRational
+  fromRational = constK . fromRational
 
 instance Floating r => Floating (r ! a) where
-  pi = K (const pi)
+  pi = constK pi
   exp = inK1 (fmap exp)
   sqrt = inK1 (fmap sqrt)
   log = inK1 (fmap log)
