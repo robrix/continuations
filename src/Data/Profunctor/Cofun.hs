@@ -8,10 +8,12 @@ module Data.Profunctor.Cofun
   -- * Computation
 , cocurry
 , uncocurry
+, coap
 ) where
 
 import Data.Bifunctor.Disjunction
 import Data.Functor.Continuation
+import Data.Functor.Contravariant
 import Data.Profunctor.Fun
 
 -- Co-functions
@@ -42,3 +44,6 @@ cocurry f = Fun (\ k -> K (\ (b :>- c) -> (k <!!> b) ! f c))
 
 uncocurry :: Fun r (Cofun r b c) a -> Fun r c (Either a b)
 uncocurry f = Fun (\ k -> K (\ c -> f # inlK k ! (inrK k >- c)))
+
+coap :: Fun r c (Either (Cofun r b c) b)
+coap = Fun (\ k -> (inrK k >-) >$< inlK k)
