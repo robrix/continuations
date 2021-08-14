@@ -3,6 +3,7 @@ module Control.Monad.Trans.Negation
 ( -- * Continuation monad
   Neg(..)
   -- * Construction
+, neg
 , in2K
 ) where
 
@@ -21,6 +22,9 @@ instance Continuation r k => Applicative (Neg k) where
 
 
 -- Construction
+
+neg :: Continuation r k => (k a -> r) -> Neg k a
+neg = Neg . inK
 
 in2K :: Continuation r k => a -> k (k a)
 in2K = inK . flip (!)
