@@ -11,6 +11,7 @@ module Data.Functor.Continuation
 , Continuation(..)
   -- ** Construction
 , idK
+, constK
 , inK1
 , inK2
   -- ** Elimination
@@ -109,6 +110,9 @@ instance Continuation r (Op r) where
 
 idK :: Continuation r k => k r
 idK = inK id
+
+constK :: Continuation r k => r -> k b
+constK = inK . const
 
 
 inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
