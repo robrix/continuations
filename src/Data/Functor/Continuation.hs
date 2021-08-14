@@ -5,6 +5,7 @@ module Data.Functor.Continuation
   type (!)(..)
   -- * Contravariant
 , Contravariant(..)
+, Representable(..)
   -- * Elimination
 , inlK
 , inrK
