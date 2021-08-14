@@ -21,7 +21,7 @@ instance Contravariant k => Functor (Neg k) where
 
 instance Continuation r k => Applicative (Neg k) where
   pure = Neg . in2K0
-  liftA2 f = neg2 (\ a b c -> a (inK (\ a -> b (inK (\ b -> c ! f a b)))))
+  liftA2 f = neg2 (\ a b c -> a (b . (c .) . f))
 
 
 -- Construction
@@ -29,11 +29,11 @@ instance Continuation r k => Applicative (Neg k) where
 neg :: Continuation r k => (k a -> r) -> Neg k a
 neg = Neg . inK
 
-neg1 :: Continuation r k => ((k a -> r) -> (k b -> r)) -> (Neg k a -> Neg k b)
-neg1 f = neg . f . exK . getNeg
+neg1 :: Continuation r k => (((a -> r) -> r) -> ((b -> r) -> r)) -> (Neg k a -> Neg k b)
+neg1 f = Neg . in2K . f . ex2K . getNeg
 
-neg2 :: Continuation r k => ((k a -> r) -> (k b -> r) -> (k c -> r)) -> (Neg k a -> Neg k b -> Neg k c)
-neg2 f a b = neg (exK (getNeg a) `f` exK (getNeg b))
+neg2 :: Continuation r k => (((a -> r) -> r) -> ((b -> r) -> r) -> ((c -> r) -> r)) -> (Neg k a -> Neg k b -> Neg k c)
+neg2 f a b = Neg (in2K (ex2K (getNeg a) `f` ex2K (getNeg b)))
 
 
 -- Elimination
