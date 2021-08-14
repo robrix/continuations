@@ -1,3 +1,4 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UndecidableInstances #-}
 module Control.Monad.Trans.Negation
 ( -- * Continuation monad
@@ -22,6 +23,9 @@ instance Contravariant k => Functor (Neg k) where
 instance Continuation r k => Applicative (Neg k) where
   pure = Neg . unit
   liftA2 f = neg2 (\ a b c -> a (b . (c .) . f))
+
+instance Continuation r k => Monad (Neg k) where
+  m >>= f = Neg (adjunct @_ @k (adjunct getNeg . adjunct (getNeg . f)) m)
 
 
 -- Construction
