@@ -44,13 +44,13 @@ infixr 0 -~
 
 -- Construction
 
-(>-) :: (r ! b) -> a -> Cofun r b a
+(>-) :: (r ! b) -> a -> (b >-r-~ a)
 (>-) = (:>-)
 
 
 -- Elimination
 
-withCofun :: Cofun r b a -> s ! ((r ! b) -> (s ! a))
+withCofun :: (b >-r-~ a) -> s ! ((r ! b) -> (s ! a))
 withCofun (b :>- a) = K (\ f -> f b ! a)
 
 elimCofun :: (b ~~r~> a) -> r ! (a >-r-~ b)
