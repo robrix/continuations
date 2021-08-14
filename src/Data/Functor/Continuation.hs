@@ -60,6 +60,11 @@ instance Num r => Num (r ! a) where
   signum = inK1 (fmap signum)
   fromInteger = K . const . fromInteger
 
+instance Fractional r => Fractional (r ! a) where
+  (/) = inK2 (liftA2 (/))
+  recip = inK1 (fmap recip)
+  fromRational = K . const . fromRational
+
 class Contravariant k => Continuation r k | k -> r where
   inK :: (a -> r) -> k a
   exK :: k a -> (a -> r)
