@@ -1,4 +1,3 @@
-{-# LANGUAGE FunctionalDependencies #-}
 module Data.Profunctor.Fun.Internal
 ( -- * CPS functions
   Fun(..)
