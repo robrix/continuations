@@ -33,3 +33,6 @@ instance Contrapply Bool Predicate where
 
 class Contrapply r k => Contrapplicative r k | k -> r where
   copure :: (b -> a) -> k (a >-r-~ b)
+
+instance Contrapplicative r ((!) r) where
+  copure = runCofun
