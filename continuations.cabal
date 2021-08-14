@@ -81,3 +81,8 @@ test-suite test
   main-is:          Test.hs
   build-depends:
     , base
+
+source-repository head
+  type: git
+  location: https://github.com/robrix/continuations
+  branch: main
