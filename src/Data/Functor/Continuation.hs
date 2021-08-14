@@ -14,7 +14,7 @@ module Data.Functor.Continuation
 , inK1
 , inK2
   -- ** Elimination
-, exK
+, (!)
   -- ** Coercion
 , coerceK
   -- ** Computation
@@ -48,19 +48,19 @@ instance Contravariant ((!) r) where
 
 class Contravariant k => Continuation r k | k -> r where
   inK :: (a -> r) -> k a
-  (!) :: k a -> (a -> r)
+  exK :: k a -> (a -> r)
 
 instance Continuation r ((!) r) where
   inK = K
-  (!) = runK
+  exK = runK
 
 instance Continuation Bool Predicate where
   inK = Predicate
-  (!) = getPredicate
+  exK = getPredicate
 
 instance Continuation r (Op r) where
   inK = Op
-  (!) = getOp
+  exK = getOp
 
 
 -- Construction
@@ -78,8 +78,8 @@ inK2 f a b = inK (exK a `f` exK b)
 
 -- Elimination
 
-exK :: Continuation r k => k a -> (a -> r)
-exK = (!)
+(!) :: Continuation r k => k a -> (a -> r)
+(!) = exK
 
 
 -- Coercion
