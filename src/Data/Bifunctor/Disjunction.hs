@@ -14,13 +14,13 @@ import Data.Functor.Identity (Identity(..))
 class Disj d where
   inl :: Functor f => f a -> f (a `d` b)
   inr :: Functor f => f b -> f (a `d` b)
-  (<!!>) :: Representable k => k a -> k b -> k (a `d` b)
+  (<!!>) :: Continuation r k => k a -> k b -> k (a `d` b)
   infixr 3 <!!>
 
 instance Disj Either where
   inl = fmap Left
   inr = fmap Right
-  a <!!> b = tabulate (either (index a) (index b))
+  a <!!> b = inK (either (a !) (b !))
 
 
 inlK :: (Contravariant k, Disj d) => k (a `d` b) -> k a
@@ -30,5 +30,5 @@ inrK :: (Contravariant k, Disj d) => k (a `d` b) -> k b
 inrK = contramap (runIdentity . inr . Identity)
 
 
-deMorganDisj :: (Representable k, Disj d) => (k a, k b) -> k (a `d` b)
+deMorganDisj :: (Continuation r k, Disj d) => (k a, k b) -> k (a `d` b)
 deMorganDisj = uncurry (<!!>)
