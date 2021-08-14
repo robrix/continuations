@@ -67,8 +67,6 @@ library
     Data.Functor.Contravariant.CPS
     Data.Profunctor.Cofun
     Data.Profunctor.Fun
-  other-modules:
-    Data.Profunctor.Fun.Internal
   build-depends:
     , adjunctions
     , base ^>=4.14.1.0
