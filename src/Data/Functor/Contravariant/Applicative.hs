@@ -39,3 +39,6 @@ class Contrapply r k => Contrapplicative r k | k -> r where
 
 instance Contrapplicative r ((!) r) where
   copure = runCofun
+
+instance Contrapplicative r (Op r) where
+  copure = Op . (!) . runCofun
