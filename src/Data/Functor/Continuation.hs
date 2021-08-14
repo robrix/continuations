@@ -12,6 +12,7 @@ module Data.Functor.Continuation
   -- ** Construction
 , idK
 , inK1
+, inKK
   -- ** Coercion
 , coerceK
   -- ** Computation
@@ -60,6 +61,10 @@ idK = inK id
 
 inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
 inK1 f = inK . f . (!)
+
+
+inKK :: Continuation r k => a -> k (k a)
+inKK = inK . flip (!)
 
 
 -- Coercion
