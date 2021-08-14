@@ -12,7 +12,6 @@ module Data.Profunctor.Fun
 ) where
 
 import Data.Functor.Continuation
-import Data.Profunctor.Cofun
 import Data.Profunctor.Fun.Internal
 
 
@@ -24,5 +23,5 @@ fun = Fun . fmap K
 
 -- Elimination
 
-elimFun :: (b >-r-~ a) -> r ! (a ~~r~> b)
-elimFun (b :>- a) = K (\ f -> b # f ! a)
+elimFun :: r ! b -> a -> r ! (a ~~r~> b)
+elimFun b a = K (\ f -> b # f ! a)
