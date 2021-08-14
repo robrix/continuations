@@ -27,10 +27,6 @@ module Data.Functor.Continuation
   -- ** Defaults
 , tabulateContinuation
 , indexContinuation
-  -- * Double negation
-, type (!!)
-  -- ** Construction
-, in2K
 ) where
 
 import           Control.Applicative (liftA2)
@@ -164,16 +160,3 @@ tabulateContinuation = inK
 
 indexContinuation :: Continuation r k => k a -> (a -> r)
 indexContinuation = (!)
-
-
--- Double negation
-
-type k !! a = k (k a)
-
-infixr 7 !!
-
-
--- Construction
-
-in2K :: Continuation r k => a -> k (k a)
-in2K = inK . flip (!)
