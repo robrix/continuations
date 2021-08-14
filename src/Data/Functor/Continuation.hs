@@ -11,8 +11,9 @@ module Data.Functor.Continuation
 , Continuation(..)
   -- ** Construction
 , idK
-, coerceK
 , inK1
+  -- ** Computation
+, coerceK
   -- ** Defaults
 , tabulateContinuation
 , indexContinuation
@@ -54,12 +55,15 @@ instance Continuation Bool Predicate where
 idK :: Continuation r k => k r
 idK = inK id
 
-coerceK :: (Continuation r j, Continuation r k) => j a -> k a
-coerceK = inK . (!)
-
 
 inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
 inK1 f = inK . f . (!)
+
+
+-- Computation
+
+coerceK :: (Continuation r j, Continuation r k) => j a -> k a
+coerceK = inK . (!)
 
 
 -- Defaults
