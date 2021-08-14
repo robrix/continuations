@@ -26,6 +26,7 @@ module Data.Functor.Continuation
   -- ** Coercion
 , coerceK
   -- ** Computation
+, unit
 , adjunct
   -- ** Defaults
 , tabulateContinuation
@@ -162,6 +163,9 @@ coerceK = inK . exK
 
 
 -- Computation
+
+unit :: (Continuation r j, Continuation r k) => a -> j (k a)
+unit a = inK (! a)
 
 adjunct :: (Continuation r j, Continuation r k) => (a -> j b) -> (b -> k a)
 adjunct f a = inK ((! a) . f)
