@@ -5,9 +5,12 @@ module Data.Profunctor.Cofun
 , (>-)
   -- * Elimination
 , withCofun
+  -- * Computation
+, cocurry
 ) where
 
 import Data.Functor.Continuation
+import Data.Profunctor.Fun
 
 -- Co-functions
 
@@ -28,3 +31,9 @@ infixr 0 >-
 
 withCofun :: Cofun r b a -> s ! ((r ! b) -> (s ! a))
 withCofun (b :>- a) = K (\ f -> f b ! a)
+
+
+-- Computation
+
+cocurry :: (c -> Either a b) -> Fun r (Cofun r b c) a
+cocurry f = Fun (\ k -> K (\ (b :>- c) -> (k <!!> b) ! f c))
