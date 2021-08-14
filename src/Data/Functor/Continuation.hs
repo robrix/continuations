@@ -49,7 +49,7 @@ instance Contravariant ((!) r) where
   contramap f = inK1 (. f)
 
 instance Semigroup r => Semigroup (r ! a) where
-  (<>) = inK2 (liftA2 (<>))
+  (<>) = inK2 (<>)
 
 instance Monoid r => Monoid (r ! a) where
   mempty = K mempty
