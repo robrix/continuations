@@ -51,7 +51,7 @@ instance r ~ s => Adjunction ((!) r) ((!) s) where
   rightAdjunct f a = K ((! a) . f)
 
 
-class Continuation r k | k -> r where
+class Contravariant k => Continuation r k | k -> r where
   inK :: (a -> r) -> k a
   (!) :: k a -> (a -> r)
 
