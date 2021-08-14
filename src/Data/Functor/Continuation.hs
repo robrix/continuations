@@ -12,6 +12,9 @@ module Data.Functor.Continuation
 , Continuation(..)
   -- ** Construction
 , idK
+  -- ** Defaults
+, tabulateContinuation
+, indexContinuation
 ) where
 
 import qualified Control.Category as Cat
@@ -59,3 +62,12 @@ instance Continuation r ((!) r) where
 
 idK :: a ! a
 idK = K id
+
+
+-- Defaults
+
+tabulateContinuation :: Continuation r k => (a -> r) -> k a
+tabulateContinuation = inK
+
+indexContinuation :: Continuation r k => k a -> (a -> r)
+indexContinuation = (!)
