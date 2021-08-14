@@ -12,6 +12,7 @@ module Data.Functor.Continuation
   -- ** Construction
 , idK
 , inK1
+, inK2
 , in2K
   -- ** Elimination
 , exK
@@ -63,6 +64,9 @@ idK = inK id
 
 inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
 inK1 f = inK . f . (!)
+
+inK2 :: Continuation r k => ((a -> r) -> (b -> r) -> (c -> r)) -> (k a -> k b -> k c)
+inK2 f a b = inK (exK a `f` exK b)
 
 
 in2K :: Continuation r k => a -> k (k a)
