@@ -1,6 +1,9 @@
 module Data.Profunctor.Cofun
 ( -- * Co-functions
   Cofun(..)
+  -- * Mixfix syntax
+, type (>-)
+, type (-~)
   -- * Construction
 , (>-)
   -- * Elimination
@@ -23,12 +26,19 @@ data Cofun r b a = (:>-) { coreturn :: r ! b, coconst :: a }
 infixr 0 :>-
 
 
+-- Mixfix syntax
+
+type a >-r = Fun r a
+type r-~ b = r b
+
+infixr 1 >-
+infixr 0 -~
+
+
 -- Construction
 
 (>-) :: (r ! b) -> a -> Cofun r b a
 (>-) = (:>-)
-
-infixr 0 >-
 
 
 -- Elimination
