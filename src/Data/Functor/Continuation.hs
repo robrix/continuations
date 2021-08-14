@@ -7,9 +7,6 @@ module Data.Functor.Continuation
 , Contravariant(..)
 , Representable(..)
   -- * Elimination
-, inlK
-, inrK
-, (<!!>)
 , exlK
 , exrK
 , deMorganPair
@@ -35,18 +32,6 @@ instance Representable ((!) r) where
 
 
 -- Elimination
-
-inlK :: Contravariant k => k (Either a b) -> k a
-inlK = contramap Left
-
-inrK :: Contravariant k => k (Either a b) -> k b
-inrK = contramap Right
-
-(<!!>) :: Representable k => k a -> k b -> k (Either a b)
-(<!!>) = curry deMorganEither
-
-infixr 3 <!!>
-
 
 exlK :: Contravariant k => k a -> k (a, b)
 exlK = contramap fst

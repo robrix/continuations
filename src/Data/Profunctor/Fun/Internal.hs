@@ -13,6 +13,7 @@ module Data.Profunctor.Fun.Internal
 
 import           Control.Arrow
 import qualified Control.Category as Cat
+import           Data.Bifunctor.Disjunction
 import           Data.Functor.Continuation
 import           Data.Profunctor
 import           Data.Profunctor.Traversing

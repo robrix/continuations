@@ -9,6 +9,7 @@ module Data.Profunctor.Cofun
 , cocurry
 ) where
 
+import Data.Bifunctor.Disjunction
 import Data.Functor.Continuation
 import Data.Profunctor.Fun
 
