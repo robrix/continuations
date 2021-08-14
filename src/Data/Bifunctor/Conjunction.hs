@@ -24,10 +24,10 @@ instance Conj (,) where
 
 
 exlF :: (Functor f, Conj c) => f (a `c` b) -> f a
-exlF = fmap (exl idK !)
+exlF = fmap (exl (K id) !)
 
 exrF :: (Functor f, Conj c) => f (a `c` b) -> f b
-exrF = fmap (exr idK !)
+exrF = fmap (exr (K id) !)
 
 
 deMorganConj :: (Contravariant k, Conj c) => Either (k a) (k b) -> k (a `c` b)

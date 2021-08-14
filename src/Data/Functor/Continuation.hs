@@ -60,8 +60,8 @@ instance Continuation r ((!) r) where
 
 -- Construction
 
-idK :: a ! a
-idK = K id
+idK :: Continuation r k => k r
+idK = inK id
 
 
 -- Defaults
