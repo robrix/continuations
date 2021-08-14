@@ -7,6 +7,8 @@ module Data.Functor.Continuation
   -- * Contravariant
 , Contravariant(..)
 , Representable(..)
+  -- * Construction
+, idK
 ) where
 
 import Data.Functor.Contravariant
@@ -34,3 +36,9 @@ instance r ~ s => Adjunction ((!) r) ((!) s) where
 
   leftAdjunct  f a = K ((! a) . f)
   rightAdjunct f a = K ((! a) . f)
+
+
+-- Construction
+
+idK :: a ! a
+idK = K id
