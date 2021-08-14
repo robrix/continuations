@@ -60,6 +60,7 @@ common common
 library
   import: common
   exposed-modules:
+    Control.Monad.Trans.Continuation
     Data.Bifunctor.Conjunction
     Data.Bifunctor.Disjunction
     Data.Functor.Continuation
