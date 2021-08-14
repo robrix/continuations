@@ -49,6 +49,8 @@ instance Contravariant ((!) r) where
 instance Semigroup r => Semigroup (r ! a) where
   (<>) = inK2 (liftA2 (<>))
 
+instance Monoid r => Monoid (r ! a) where
+  mempty = K mempty
 
 class Contravariant k => Continuation r k | k -> r where
   inK :: (a -> r) -> k a
