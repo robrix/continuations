@@ -13,7 +13,6 @@ module Data.Functor.Continuation
 , idK
 , inK1
 , inK2
-, in2K
   -- ** Elimination
 , exK
   -- ** Coercion
@@ -25,6 +24,8 @@ module Data.Functor.Continuation
 , indexContinuation
   -- * Double negation
 , type (!!)
+  -- ** Construction
+, in2K
 ) where
 
 import qualified Control.Category as Cat
@@ -75,10 +76,6 @@ inK2 :: Continuation r k => ((a -> r) -> (b -> r) -> (c -> r)) -> (k a -> k b ->
 inK2 f a b = inK (exK a `f` exK b)
 
 
-in2K :: Continuation r k => a -> k (k a)
-in2K = inK . flip (!)
-
-
 -- Elimination
 
 exK :: Continuation r k => k a -> (a -> r)
@@ -111,3 +108,9 @@ indexContinuation = (!)
 type k !! a = k (k a)
 
 infixr 7 !!
+
+
+-- Construction
+
+in2K :: Continuation r k => a -> k !! a
+in2K = inK . flip (!)
