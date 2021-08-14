@@ -12,6 +12,7 @@ module Data.Functor.Continuation
 , Continuation(..)
   -- ** Construction
 , idK
+, inK1
   -- ** Defaults
 , tabulateContinuation
 , indexContinuation
@@ -62,6 +63,10 @@ instance Continuation r ((!) r) where
 
 idK :: Continuation r k => k r
 idK = inK id
+
+
+inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
+inK1 f = inK . f . (!)
 
 
 -- Defaults
