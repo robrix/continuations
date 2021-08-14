@@ -7,6 +7,7 @@ module Data.Profunctor.Cofun
 , withCofun
   -- * Computation
 , cocurry
+, uncocurry
 ) where
 
 import Data.Bifunctor.Disjunction
@@ -38,3 +39,6 @@ withCofun (b :>- a) = K (\ f -> f b ! a)
 
 cocurry :: (c -> Either a b) -> Fun r (Cofun r b c) a
 cocurry f = Fun (\ k -> K (\ (b :>- c) -> (k <!!> b) ! f c))
+
+uncocurry :: Fun r (Cofun r b c) a -> Fun r c (Either a b)
+uncocurry f = Fun (\ k -> K (\ c -> f # inlK k ! (inrK k >- c)))
