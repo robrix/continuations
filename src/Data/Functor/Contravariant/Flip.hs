@@ -1,4 +1,6 @@
 -- | 'Contravariant' functors from 'Profunctor's.
+--
+-- Generalizes "Data.Functor.Contravariant".'Op' to any 'Profunctor'.
 module Data.Functor.Contravariant.Flip
 ( -- * Flipped profunctors
   Flip(..)
