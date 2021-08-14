@@ -18,7 +18,7 @@ import Data.Bifunctor.Disjunction
 import Data.Functor.Continuation
 import Data.Functor.Contravariant
 import Data.Profunctor
-import Data.Profunctor.Fun
+import Data.Profunctor.Fun.Internal
 
 -- Co-functions
 
