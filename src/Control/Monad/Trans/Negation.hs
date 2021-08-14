@@ -34,5 +34,5 @@ in2K = inK . flip (!)
 
 -- Elimination
 
-runNeg :: Continuation r k => Neg k a -> (k a -> r)
-runNeg = exK . getNeg
+runNeg :: Continuation r k => k a -> k (Neg k a)
+runNeg = adjunct getNeg
