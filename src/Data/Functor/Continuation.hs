@@ -65,6 +65,9 @@ instance Fractional r => Fractional (r ! a) where
   recip = inK1 (fmap recip)
   fromRational = K . const . fromRational
 
+
+-- Continuation abstraction
+
 class Contravariant k => Continuation r k | k -> r where
   inK :: (a -> r) -> k a
   exK :: k a -> (a -> r)
