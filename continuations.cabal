@@ -57,6 +57,7 @@ common common
 library
   import: common
   exposed-modules:
+    Data.Bifunctor.Disjunction
     Data.Functor.Continuation
     Data.Functor.Contravariant.CPS
     Data.Profunctor.Cofun
