@@ -23,6 +23,9 @@ class ContravariantCPS r k => Contrapply r k | k -> r where
 
   infixl 3 <&>
 
+instance Contrapply r ((!) r) where
+  f <&> a = K (\ b -> f ! (a >- b))
+
 
 class Contrapply r k => Contrapplicative r k | k -> r where
   copure :: (b -> a) -> k (a >-r-~ b)
