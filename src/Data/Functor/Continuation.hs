@@ -51,7 +51,7 @@ instance r ~ s => Adjunction ((!) r) ((!) s) where
 
 class Continuation r k | k -> r where
   inK :: (a -> r) -> k a
-  (!) :: k a -> a -> r
+  (!) :: k a -> (a -> r)
 
 instance Continuation r ((!) r) where
   inK = K
