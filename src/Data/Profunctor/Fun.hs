@@ -56,11 +56,11 @@ instance Cochoice (Fun r) where
   unright f = Fun (\ k -> let f' = (inlK f' <!!> k) # f in inrK f')
 
 instance Strong (Fun r) where
-  first'  f = Fun (\ k -> K (\ (a, c) -> contramap (,c) k # f ! a))
-  second' f = Fun (\ k -> K (\ (c, a) -> contramap (c,) k # f ! a))
+  first'  f = fun (\ k (a, c) -> contramap (,c) k # f ! a)
+  second' f = fun (\ k (c, a) -> contramap (c,) k # f ! a)
 
 instance Traversing (Fun r) where
-  wander traverse f = Fun (\ b -> K (\ a -> b # traverse (\ a -> Fun (\ k -> K (\ _ -> k # f ! a))) a ! ()))
+  wander traverse f = fun (\ b a -> b # traverse (\ a -> fun (\ k _ -> k # f ! a)) a ! ())
 
 instance Functor (Fun r a) where
   fmap = rmap
@@ -68,10 +68,10 @@ instance Functor (Fun r a) where
 
 instance Applicative (Fun r x) where
   pure = Fun . (>$)
-  f <*> a = Fun (\ k -> K (\ x -> K (\ f -> contramap f k # a ! x) # f ! x))
+  f <*> a = fun (\ k x -> K (\ f -> contramap f k # a ! x) # f ! x)
 
 instance Monad (Fun r a) where
-  m >>= f = Fun (\ k -> K (\ x -> K (\ a -> k # f a ! x) # m ! x))
+  m >>= f = fun (\ k x -> K (\ a -> k # f a ! x) # m ! x)
 
 instance Arrow (Fun r) where
   arr = Fun . contramap
@@ -157,10 +157,10 @@ runCofun f = K (\ (a :>- b) -> a ! f b)
 -- Computation
 
 cocurry :: Disj d => (c -> a `d` b) -> (b >-r-~ c) ~~r~> a
-cocurry f = Fun (\ k -> K (\ (b :>- c) -> (k <!!> b) ! f c))
+cocurry f = fun (\ k (b :>- c) -> (k <!!> b) ! f c)
 
 uncocurry :: Disj d => ((b >-r-~ c) ~~r~> a) -> (c ~~r~> (a `d` b))
-uncocurry f = Fun (\ k -> K (\ c -> inlK k # f ! (inrK k >- c)))
+uncocurry f = fun (\ k c -> inlK k # f ! (inrK k >- c))
 
 coap :: Disj d => c ~~r~> ((b >-r-~ c) `d` b)
 coap = Fun (\ k -> (inrK k >-) >$< inlK k)
