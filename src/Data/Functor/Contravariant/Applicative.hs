@@ -2,6 +2,7 @@
 module Data.Functor.Contravariant.Applicative
 ( -- * Contravariant applicative functors
   Contrapply(..)
+, Contrapplicative(..)
 ) where
 
 import Data.Functor.Continuation
@@ -21,3 +22,7 @@ class ContravariantCPS r k => Contrapply r k | k -> r where
   (<&>) = coliftC2 (fun (!))
 
   infixl 3 <&>
+
+
+class Contrapply r k => Contrapplicative r k | k -> r where
+  copure :: (b -> a) -> k (a >-r-~ b)
