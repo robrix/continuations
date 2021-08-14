@@ -117,7 +117,7 @@ constK = inK . const
 
 
 inK1 :: Continuation r k => ((a -> r) -> (b -> r)) -> (k a -> k b)
-inK1 f = inK1' (f . (!))
+inK1 f = inK1' (f . exK)
 
 inK1' :: Continuation r k => (k a -> (b -> r)) -> (k a -> k b)
 inK1' f = inK . f
@@ -127,7 +127,7 @@ inK2 f a b = inK (exK a `f` exK b)
 
 
 in2K :: Continuation r k => a -> k (k a)
-in2K = inK . flip (!)
+in2K = inK . flip exK
 
 
 -- Elimination
@@ -149,7 +149,7 @@ exK2 f a b = exK (inK a `f` inK b)
 -- Coercion
 
 coerceK :: (Continuation r j, Continuation r k) => j a -> k a
-coerceK = inK . (!)
+coerceK = inK . exK
 
 
 -- Computation
@@ -164,4 +164,4 @@ tabulateContinuation :: Continuation r k => (a -> r) -> k a
 tabulateContinuation = inK
 
 indexContinuation :: Continuation r k => k a -> (a -> r)
-indexContinuation = (!)
+indexContinuation = exK
